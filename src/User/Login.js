@@ -1,13 +1,17 @@
 import React from 'react'
-
 import firebase from 'firebase/app';
-import auth from '../config/auth';
+import errorCaught from './errorCaught';
 
-
-const Login = ( ) => {
+const Login = () => {
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider);
+        firebase.auth().signInWithPopup(provider)
+            .then(result => {
+                const user = result.user;
+                // console.log(user);
+                window.alert("Welcome " + user.displayName + "\nYou have been login successfully");
+            })
+            .catch(errorCaught);
   }
     return (
         <div>
